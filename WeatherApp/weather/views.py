@@ -14,7 +14,6 @@ def index(request):
 
     form = CityForm()
     city = City.objects.last()
-    City.objects.last().delete()
     res = requests.get(url.format(city.name)).json()
 
     current_info = {

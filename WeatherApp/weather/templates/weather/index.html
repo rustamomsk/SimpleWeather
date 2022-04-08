@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Weather App</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        html {
+            height: 100%;
+            font-size: 16px;
+        }
+        body {
+          min-height:100%;
+          position:relative;
+          padding-bottom: 70px;
+        }
+
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+</head>
+<body class="text-white bg-dark p-0">
+<div class="container-fluid d-flex mx-auto flex-column vh-100">
+
+      <div class="navbar navbar-dark bg-dark mb-auto mx-auto">
+          <div class="container-fluid p-4">
+          <a class="navbar-brand">SimpleWeather</a>
+              <form class="d-flex" method="post">
+                  {% csrf_token %}
+                  {{ form.name }}
+                  <!--<input class="form-control me-2" type="search" placeholder="Saint Petersburg" aria-label="Search">-->
+                  <button class="btn btn-outline-light" type="submit">Search</button>
+              </form>
+          </div>
+      </div>
+
+      <div class="container-fluid d-flex justify-content-center">
+          <div class="row justify-content-center">
+              <img class="col-2" src="https://openweathermap.org/img/w/{{ info.icon }}.png" alt="Something went wrong">
+              <div class="col-12 text-center"><h1 class="display-1">{{ info.city }}</h1></div>
+              <div class="col-12 text-center"><h1 class="display-1">{{ info.temp }}° </h1></div>
+              <div class="col-12 text-center">
+                  <p class="lead">{{ info.main }}</p>
+                  <p class="lead">H: {{ info.temp_h }}°   L: {{ info.temp_l }}°</p>
+                  <p class="lead">Wind: {{ info.wind }} m/s</p>
+                  <p class="lead">Feels like: {{ info.feels_like }}°</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="mt-auto text-center">
+        <p class="">Check the weather in any city</p>
+      </div>
+</div>
+<p class="mt-auto text-center">There is nothing here. 2022</p>
+
+
+</body>
+</html>

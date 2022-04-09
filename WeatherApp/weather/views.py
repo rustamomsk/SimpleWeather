@@ -13,20 +13,30 @@ def index(request):
         form.save()
 
     form = CityForm()
-    city = City.objects.last()
-    res = requests.get(url.format(city.name)).json()
-
-    current_info = {
-        'city': city.name,
-        'temp': int(round(res['main']['temp'], 0)),
-        #'temp': res['main']['temp'],
-        'temp_h': res['main']['temp_max'],
-        'temp_l': res['main']['temp_min'],
-        'icon': res['weather'][0]['icon'],
-        'main': res['weather'][0]['main'],
-        'wind': res['wind']['speed'],
-        'feels_like': res['main']['feels_like']
-    }
+    try:
+        city = City.objects.last()
+        res = requests.get(url.format(city.name)).json()
+        current_info = {
+            'city': city.name,
+            'temp': int(round(res['main']['temp'], 0)),
+            'temp_h': res['main']['temp_max'],
+            'temp_l': res['main']['temp_min'],
+            'icon': res['weather'][0]['icon'],
+            'main': res['weather'][0]['main'],
+            'wind': res['wind']['speed'],
+            'feels_like': res['main']['feels_like']
+        }
+    except Exception as ex:
+        res = requests.get(url.format('Saint Petersburg')).json()
+        current_info = {
+            'temp': int(round(res['main']['temp'], 0)),
+            'temp_h': res['main']['temp_max'],
+            'temp_l': res['main']['temp_min'],
+            'icon': res['weather'][0]['icon'],
+            'main': res['weather'][0]['main'],
+            'wind': res['wind']['speed'],
+            'feels_like': res['main']['feels_like']
+        }
 
     context = {'info': current_info, 'form': form}
 
